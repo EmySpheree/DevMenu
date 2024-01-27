@@ -158,12 +158,13 @@ local label = "Activer le mode staff"
 
 function OuvrirAdmin()
 
-	local main = RageUI.CreateMenu(Config.MenuName, Config.SubName)
-	local perso2 = RageUI.CreateSubMenu(main, "Actions dev", Config.SubName )
-    local setjobMenu = RageUI.CreateSubMenu(options, "SetJob", Config.SubName )
-    local setjobMenuSub = RageUI.CreateSubMenu(setjobMenu, "Set-Job", Config.SubName )
-    local setjob2Menu = RageUI.CreateSubMenu(options, "SetJob", Config.SubName )
-    local setjobMenuSub2 = RageUI.CreateSubMenu(setjobMenu, "Set-Job", Config.SubName )
+	local main = RageUI.CreateMenu(Config.MenuName, " ")
+	local perso2 = RageUI.CreateSubMenu(main, "Actions dev", " " )
+	local meteo = RageUI.CreateSubMenu(main, "Actions dev", " " )
+    local setjobMenu = RageUI.CreateSubMenu(options, "SetJob", " " )
+    local setjobMenuSub = RageUI.CreateSubMenu(setjobMenu, "Set-Job", " " )
+    local setjob2Menu = RageUI.CreateSubMenu(options, "SetJob", " " )
+    local setjobMenuSub2 = RageUI.CreateSubMenu(setjobMenu, "Set-Job", " " )
     ------------------------------------------------------------------------------------
     
     ------------------------------------------------------------------------------------
@@ -242,6 +243,9 @@ function OuvrirAdmin()
                         end
                     end)
 
+                    RageUI.ButtonWithStyle("Meteo", nil, {RightLabel = "→→"},true, function()
+                    end, meteo)
+
                 end
             end)     
             
@@ -286,19 +290,11 @@ function OuvrirAdmin()
                                 ExecuteCommand('safeZoneBuilder')
                                 RageUI.CloseAll()
                             end
-                        end)
-                        
+                        end)                       
 
                         RageUI.ButtonWithStyle("Radar", "~y~ Radar  Builder", {RightLabel = ""}, true, function(Hovered, Active, Selected)
                             if Selected then
                                 ExecuteCommand('radarbuilder')
-                                RageUI.CloseAll()
-                            end
-                        end)
-
-                        RageUI.ButtonWithStyle("Changer la Météo", "~y~ Emy Meteo", {RightLabel = ""}, true, function(Hovered, Active, Selected)
-                            if Selected then
-                                TriggerEvent('meteo:openmenu')
                                 RageUI.CloseAll()
                             end
                         end)
@@ -315,6 +311,78 @@ function OuvrirAdmin()
                     end, function()
                     end)
 
+
+        
+                RageUI.IsVisible(meteo, true, true, true, function()
+                    RageUI.Separator("~y~ Temps ~s~ ")
+                
+                    RageUI.ButtonWithStyle("Soleil", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand('weather extrasunny')
+                            RageUI.CloseAll()
+                        end
+                    end)                
+                    RageUI.ButtonWithStyle("Dégager", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("weather clear")
+                            RageUI.CloseAll()
+                        end
+                    end)              
+                    RageUI.ButtonWithStyle("Pluie", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("weather rain")
+                            RageUI.CloseAll()
+                        end
+                    end)            
+                    RageUI.ButtonWithStyle("Orage", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("weather thunder")
+                            RageUI.CloseAll()
+                        end
+                    end)          
+                    RageUI.ButtonWithStyle("Neige", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("weather xmas")
+                            RageUI.CloseAll()
+                        end
+                    end)       
+                    RageUI.ButtonWithStyle("Blizzard", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("weather blizzard")
+                            RageUI.CloseAll()
+                        end
+                    end)
+
+
+                    RageUI.Separator("~y~ Heure ~s~ ")      
+                    RageUI.ButtonWithStyle("0 h 00", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("time 0 00")
+                            RageUI.CloseAll()
+                        end
+                    end)    
+                    RageUI.ButtonWithStyle("6 h 00", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("time 6 00")
+                            RageUI.CloseAll()
+                        end
+                    end)    
+                    RageUI.ButtonWithStyle("12 h 00", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("time 12 00")
+                            RageUI.CloseAll()
+                        end
+                    end)    
+                    RageUI.ButtonWithStyle("18 h 00", nil, {RightLabel = ""}, true, function(Hovered, Active, Selected)
+                        if Selected then
+                            ExecuteCommand("time 18 00")
+                            RageUI.CloseAll()
+                        end
+                    end)
+                    
+                                            
+                end, function()
+                end)
 
 
         RageUI.IsVisible(setjobMenu, true, true, true, function()
@@ -390,7 +458,7 @@ function OuvrirAdmin()
         end, function()
         end)
 
-        if not RageUI.Visible(main) and not RageUI.Visible(perso2) and not RageUI.Visible(setjobMenu) and not RageUI.Visible(setjobMenuSub) and not RageUI.Visible(setjob2Menu) and not RageUI.Visible(setjobMenuSub2) then
+        if not RageUI.Visible(main) and not RageUI.Visible(meteo) and not RageUI.Visible(MenuTempsMeteo) and not RageUI.Visible(MenuHeureMeteo) and not RageUI.Visible(perso2) and not RageUI.Visible(setjobMenu) and not RageUI.Visible(setjobMenuSub) and not RageUI.Visible(setjob2Menu) and not RageUI.Visible(setjobMenuSub2) then
             main = RMenu:DeleteType(main, true)
         end
     end
